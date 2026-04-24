@@ -6,8 +6,9 @@ const SignalTable = ({ signals, refresh }) => {
 
   return (
     <>
-      {/* TABLE */}
-      <table>
+    <div 
+    style={{ width: "100%", overflowX: "auto" }}>
+      <table style={{ width: "100%", minWidth: "900px" }}>
         <thead>
           <tr>
             <th>Trading Pair</th>
@@ -18,6 +19,11 @@ const SignalTable = ({ signals, refresh }) => {
             <th>Price</th>
             <th>Status</th>
             <th>ROI</th>
+
+        
+            <th>Entry Time</th>
+            <th>Expiry Time</th>
+
             <th>Action</th>
           </tr>
         </thead>
@@ -47,8 +53,26 @@ const SignalTable = ({ signals, refresh }) => {
               </td>
 
               <td>
+                {s.entry_time
+                  ? new Date(s.entry_time).toLocaleString()
+                  : "-"}
+              </td>
+
+              <td>
+                {s.expiry_time
+                  ? new Date(s.expiry_time).toLocaleString()
+                  : "-"}
+              </td>
+
+              <td>
                 <button
-                 style={{ background: "#ef4444", color: "white", border: "none", cursor: "pointer", padding: "8px 12px" }}
+                  style={{
+                    background: "#ef4444",
+                    color: "white",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: "8px 12px",
+                  }}
                   onClick={() => setDeleteId(s.id)}
                 >
                   Delete
@@ -58,12 +82,12 @@ const SignalTable = ({ signals, refresh }) => {
           ))}
         </tbody>
       </table>
+      </div>
 
-      {/* DELETE CONFIRM MODAL */}
+    
       {deleteId && (
         <div className="modal-overlay">
           <div className="modal-box">
-
             <h3>Confirm Delete</h3>
             <p>Are you sure you want to delete this signal?</p>
 
@@ -72,23 +96,22 @@ const SignalTable = ({ signals, refresh }) => {
                 display: "flex",
                 gap: "10px",
                 justifyContent: "center",
-                marginTop: "15px"
+                marginTop: "15px",
               }}
             >
-
               <button
                 onClick={() => setDeleteId(null)}
                 style={{
                   padding: "8px 12px",
                   border: "1px solid #ccc",
                   background: "white",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 Cancel
               </button>
 
-              <button 
+              <button
                 onClick={async () => {
                   await deleteSignal(deleteId);
                   setDeleteId(null);
@@ -99,14 +122,12 @@ const SignalTable = ({ signals, refresh }) => {
                   background: "#ef4444",
                   color: "white",
                   border: "none",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 Delete
               </button>
-
             </div>
-
           </div>
         </div>
       )}

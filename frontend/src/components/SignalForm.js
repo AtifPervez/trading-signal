@@ -17,22 +17,65 @@ const SignalForm = ({ refresh, setToast, close }) => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  const validateForm = (form) => {
+  const entry = Number(form.entry_price);
+  const sl = Number(form.stop_loss);
+  const tp = Number(form.target_price);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  if (!form.symbol) return "Symbol is required";
 
-    try {
-      await createSignal(form);
-      setToast({ message: "Signal Created!", type: "success" });
-      refresh();
-      close();
-    } catch (err) {
-      setToast({ message: err.response?.data?.error || "Error", type: "error" });
-    }
+  if (!entry || !sl || !tp)
+    return "Entry, Stop Loss, and Target are required";
 
-    setLoading(false);
-  };
+  if (form.direction === "BUY") {
+    if (sl >= entry)
+      return "For BUY, Stop Loss must be less than Entry Price";
+    if (tp <= entry)
+      return "For BUY, Target must be greater than Entry Price";
+  }
+
+  if (form.direction === "SELL") {
+    if (sl <= entry)
+      return "For SELL, Stop Loss must be greater than Entry Price";
+    if (tp >= entry)
+      return "For SELL, Target must be less than Entry Price";
+  }
+
+  return null;
+};
+
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const error = validateForm(form);
+
+  if (error) {
+    setToast({ message: error, type: "error" });
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    await createSignal({
+      ...form,
+      entry_price: Number(form.entry_price),
+      stop_loss: Number(form.stop_loss),
+      target_price: Number(form.target_price),
+    });
+
+    setToast({ message: "Signal Created!", type: "success" });
+    refresh();
+    close();
+  } catch (err) {
+    setToast({
+      message: err.response?.data?.error || "Error",
+      type: "error",
+    });
+  }
+
+  setLoading(false);
+};
 
   return (
  <form onSubmit={handleSubmit} className="premium-card">
@@ -111,7 +154,7 @@ const SignalForm = ({ refresh, setToast, close }) => {
 
   </div>
 
-  {/* Hint */}
+  
   <div className="hint">
     💡 BUY → Target above Entry, SL below  
     <br />
