@@ -3,6 +3,19 @@ import { deleteSignal } from "../services/api";
 
 const SignalTable = ({ signals, refresh }) => {
   const [deleteId, setDeleteId] = useState(null);
+  const getTimeRemaining = (expiryTime) => {
+  if (!expiryTime) return "-";
+
+  const total = new Date(expiryTime) - new Date();
+
+  if (total <= 0) return "Expired";
+
+  const hours = Math.floor(total / (1000 * 60 * 60));
+  const minutes = Math.floor((total % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((total % (1000 * 60)) / 1000);
+
+  return `${hours}h ${minutes}m ${seconds}s`;
+};
 
   return (
     <>
@@ -21,8 +34,8 @@ const SignalTable = ({ signals, refresh }) => {
             <th>ROI</th>
 
         
-            <th>Entry Time</th>
-            <th>Expiry Time</th>
+            <th>Time Left</th>
+           
 
             <th>Action</th>
           </tr>
@@ -52,16 +65,9 @@ const SignalTable = ({ signals, refresh }) => {
                 {s.roi?.toFixed(2)}%
               </td>
 
+             
               <td>
-                {s.entry_time
-                  ? new Date(s.entry_time).toLocaleString()
-                  : "-"}
-              </td>
-
-              <td>
-                {s.expiry_time
-                  ? new Date(s.expiry_time).toLocaleString()
-                  : "-"}
+                {getTimeRemaining(s.expiry_time)}
               </td>
 
               <td>
