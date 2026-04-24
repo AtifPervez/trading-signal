@@ -13,23 +13,23 @@ The system automatically evaluates signal performance based on:
 
 ---
 ## ⚙️ Backend Setup
-cd trading-signal/backend
-npm install
-npm start
+- cd trading-signal/backend
+- npm install
+- npm start
 
 API Endpoints
-Base URL: http://localhost:5000/api
-Create Signal:POST /api/signals
-Get All Signals:GET /api/signals
-Get Signal By ID:GET /api/signals/:id
-Delete Signal By ID:DELETE /api/signals/:id
-Signal Status:GET /api/signals/:id/status
+- Base URL: http://localhost:5000/api
+- Create Signal:POST /api/signals
+- Get All Signals:GET /api/signals
+- Get Signal By ID:GET /api/signals/:id
+- Delete Signal By ID:DELETE /api/signals/:id
+- Signal Status:GET /api/signals/:id/status
 
 💻 Frontend Setup
-cd trading-signal/frontend
-npm install
-npm start
-Frontend Runs On:http://localhost:3000
+- cd trading-signal/frontend
+- npm install
+- npm start
+- Frontend Runs On:http://localhost:3000
 
 ## 🛠️ Tech Stack
 
