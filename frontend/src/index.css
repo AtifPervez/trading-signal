@@ -1,0 +1,230 @@
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui;
+  background: #eeeeee;
+  color: #0f172a;
+}
+
+.app {
+  max-width: 1100px;
+  margin: auto;
+  padding: 24px;
+}
+
+/* Dark Mode */
+.dark {
+  background: #0f172a;
+  color: white;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #f9fafb; /* light grey base */
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+th {
+  text-align: left;
+  padding: 12px;
+  font-size: 13px;
+  color: #6b7280;
+  background: #f3f4f6; /* soft grey header */
+  border-bottom: 1px solid #e5e7eb;
+}
+
+td {
+  padding: 12px;
+  font-size: 14px;
+  color: #111827;
+  border-bottom: 1px solid #eef2f7;
+}
+
+tr:hover {
+  background: #f1f5f9; /* hover light grey */
+  transition: 0.2s;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-card {
+  background: white;
+  width: 520px;
+  max-width: 92%;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+  animation: fadeIn 0.2s ease-in-out;
+}
+@keyframes fadeIn {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.modal-box {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  width: 500px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.close-btn {
+  float: right;
+  border: none;
+  background: none;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  color: white;
+  z-index: 1000;
+  animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.toast.success { background: green; }
+.toast.error { background: red; }
+
+
+/* FIELD */
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+/* LABEL */
+.field label {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+/* INPUT */
+.field input,
+.field select {
+  padding: 11px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: 0.2s ease;
+}
+
+/* FOCUS */
+.field input:focus,
+.field select:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+  outline: none;
+}
+
+.premium-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+
+  background: linear-gradient(to right, #4f46e5, #06b6d4);
+
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.premium-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Disabled state */
+.premium-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* OPEN */
+.OPEN {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/* TARGET HIT */
+.TARGET_HIT {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* STOPLOSS HIT */
+.STOPLOSS_HIT {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* EXPIRED */
+.EXPIRED {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.profit {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.loss {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.buy {
+  color: #16a34a; /* green */
+  font-weight: 600;
+}
+
+.sell {
+  color: #dc2626; /* red */
+  font-weight: 600;
+}
+
+
+
+
+
+
