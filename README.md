@@ -1,5 +1,5 @@
 *****Backend Setup*********
-cd backend
+cd trading-signal/backend
 npm install
 npm start
 Backend will run on:http://localhost:5000
@@ -23,7 +23,7 @@ http://localhost:5000/api/signals/:id/status
 
 ***********Frontend Setup***************
 
-cd frontend
+cd trading-signal/frontend
 npm install
 npm start
 Frontend will run on:http://localhost:3000
