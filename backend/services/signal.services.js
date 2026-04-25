@@ -12,29 +12,45 @@ async function getLivePrice(symbol) {
     }
 }
 function calculateROI(signal, currentPrice) {
-    if (!currentPrice) return null;
+    if (currentPrice === null || currentPrice === undefined) return null;
 
-    let roi;
+    const entry = Number(signal.entry_price);
+    if (!entry) return null;
+
+    let roi = 0;
+
     if (signal.direction === "BUY") {
-        roi = ((currentPrice - signal.entry_price) / signal.entry_price) * 100;
-    } else {
-        roi = ((signal.entry_price - currentPrice) / signal.entry_price) * 100;
+        roi = ((currentPrice - entry) / entry) * 100;
+    }
+
+    if (signal.direction === "SELL") {
+        roi = ((entry - currentPrice) / entry) * 100;
     }
 
     return parseFloat(roi.toFixed(2));
 }
+
+const FINAL_STATES = ["TARGET_HIT", "STOPLOSS_HIT", "EXPIRED"];
+
 function evaluateSignal(signal, currentPrice) {
-    if (signal.status !== "OPEN") return signal.status;
+   
+    if (FINAL_STATES.includes(signal.status)) {
+        return signal.status;
+    }
 
     const now = new Date();
 
-    // Expiry check
-    if (now > new Date(signal.expiry_time)) {
+    
+    if (signal.expiry_time && new Date(signal.expiry_time) <= now) {
         return "EXPIRED";
     }
 
-    if (!currentPrice) return "OPEN";
+    
+    if (currentPrice === null || currentPrice === undefined) {
+        return "OPEN";
+    }
 
+    
     if (signal.direction === "BUY") {
         if (currentPrice >= signal.target_price) return "TARGET_HIT";
         if (currentPrice <= signal.stop_loss) return "STOPLOSS_HIT";
